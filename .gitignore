@@ -24,3 +24,10 @@ casts/*.raw.cast
 
 # OS
 .DS_Store
+part5-deploy/.venv/
+part5-deploy/.terraform/
+part5-deploy/build/
+part5-deploy/terraform_provider_mycloud.egg-info/
+part5-deploy/terraform.tfstate
+part5-deploy/terraform.tfstate.backup
+part5-deploy/.terraform.lock.hcl
