@@ -11,10 +11,13 @@ Each step adds exactly one new concept to a small `mycloud` provider:
 | 2 | [`part2-data-source/`](part2-data-source) | [Building Your First Data Source](https://pyvider.com/posts/building-your-first-data-source/) | A `mycloud_server_info` data source over the same server model. |
 | 3 | [`part3-function/`](part3-function) | [Building Your First Provider Function](https://pyvider.com/posts/building-your-first-function/) | A `provider::mycloud::generate_name(...)` HCL-callable function. |
 | 4 | [`part4-ephemeral/`](part4-ephemeral) | [Building Your First Ephemeral Resource](https://pyvider.com/posts/building-your-first-ephemeral-resource/) | A `mycloud_session_token` ephemeral with the `open → renew → close` lifecycle. |
+| 5 | [`part5-deploy/`](part5-deploy) | [Deploying Your Provider as a Binary](https://pyvider.com/posts/deploying-your-provider/) | Package the provider as a single-file executable with Flavorpack — no Python, no venv, no install step on the consumer side. |
 
-Each part is a self-contained, uv-managed Python package that provides
+Parts 1–4 are each a self-contained, uv-managed Python package that provides
 `terraform-provider-mycloud`, a fully functional local Terraform provider.
 Each is a clean superset of the previous one so you can diff your way forward.
+Part 5 takes the part-4 provider and packages it for binary distribution
+via Flavorpack.
 
 ## Prerequisites
 
@@ -42,10 +45,13 @@ produce the casts embedded in the blog posts. The outputs go to
 `./casts/` by default (override with an explicit output directory).
 
 ```bash
-./scripts/record-all.sh                    # record all four parts → ./casts/
+./scripts/record-all.sh                    # record parts 1–4 → ./casts/
 ./scripts/record-part1.sh                  # just part 1
 ./scripts/record-part1.sh /some/other/dir  # output elsewhere
 ```
+
+(Part 5's binary-packaging flow uses `flavor pack` rather than `tofu apply`,
+so it doesn't fit the same recording template — record manually if needed.)
 
 Requires `asciinema` and Python 3 on PATH.
 
