@@ -45,13 +45,15 @@ produce the casts embedded in the blog posts. The outputs go to
 `./casts/` by default (override with an explicit output directory).
 
 ```bash
-./scripts/record-all.sh                    # record parts 1–4 → ./casts/
-./scripts/record-part1.sh                  # just part 1
-./scripts/record-part1.sh /some/other/dir  # output elsewhere
+./scripts/record-tutorial-part.sh 1         # record just part 1 → ./casts/
+./scripts/record-tutorial-part.sh 5 /tmp    # record part 5 to /tmp
+./scripts/record-all.sh                     # record all 5 parts in sequence
 ```
 
-(Part 5's binary-packaging flow uses `flavor pack` rather than `tofu apply`,
-so it doesn't fit the same recording template — record manually if needed.)
+`record-tutorial-part.sh <N>` accepts 1–5 and is the same script CI uses
+to produce the casts embedded in the blog posts. Part 5 uses a different
+flow under the hood (`flavor pack` to build a binary, then `tofu apply`
+against the binary) but the entry point is the same.
 
 Requires `asciinema` and Python 3 on PATH.
 

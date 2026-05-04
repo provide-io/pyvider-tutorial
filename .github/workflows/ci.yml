@@ -65,11 +65,11 @@ jobs:
 
       # Run the full Terraform lifecycle for this tutorial part.
       - name: "\U0001F680 Run part ${{ matrix.part }}"
-        run: ci/run-tutorial-part.sh ${{ matrix.part }}
+        run: scripts/run-tutorial-part.sh ${{ matrix.part }}
 
       # Record the lifecycle as an asciinema cast file.
       - name: "\U0001F3AC Record cast"
-        run: ci/record-tutorial-part.sh ${{ matrix.part }} casts
+        run: scripts/record-tutorial-part.sh ${{ matrix.part }} casts
 
       # Upload the cast for use by other workflows (e.g. site build).
       - name: "\U0001F4E4 Upload cast"
