@@ -19,7 +19,8 @@ case "$PART_NUM" in
   3) PART_DIR="part3-function";    CAST_BASE="tutorial-part3-function"    TITLE="Building your first function" ;;
   4) PART_DIR="part4-ephemeral";   CAST_BASE="tutorial-part4-ephemeral"   TITLE="Building your first ephemeral resource" ;;
   5) PART_DIR="part5-deploy";      CAST_BASE="tutorial-part5-deploy"      TITLE="Deploying your provider as a binary" ;;
-  *) echo "ERROR: Unknown part number: $PART_NUM (expected 1-5)" >&2; exit 1 ;;
+  6) PART_DIR="part6-protocol-611"; CAST_BASE="tutorial-part6-protocol-611" TITLE="Protocol 6.11: actions and list resources" ;;
+  *) echo "ERROR: Unknown part number: $PART_NUM (expected 1-6)" >&2; exit 1 ;;
 esac
 
 PROVIDER_DIR="$REPO_ROOT/$PART_DIR"

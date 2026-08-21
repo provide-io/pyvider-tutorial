@@ -1,0 +1,26 @@
+[project]
+name = "terraform-provider-mycloud"
+version = "0.1.0"
+description = "mycloud tutorial provider — part 6: protocol 6.11 component types"
+requires-python = ">=3.11"
+dependencies = ["pyvider>=0.5.2", "flavorpack"]
+
+[project.scripts]
+terraform-provider-mycloud = "my_provider:main"
+
+[project.entry-points."pyvider"]
+mycloud = "my_provider"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["my_provider"]
+
+[tool.pyvider]
+provider_name = "mycloud"
+
+[tool.flavor]
+entry_point = "pyvider.cli:main"
+output_path = "dist/terraform-provider-mycloud"
