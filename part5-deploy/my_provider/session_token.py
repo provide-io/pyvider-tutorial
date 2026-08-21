@@ -47,10 +47,15 @@ class SessionToken(BaseEphemeralResource):
             "expires_at":  a_str(computed=True, description="ISO-8601 expiry timestamp"),
         })
 
-    async def validate(self, config: SessionTokenConfig) -> list[str]:
-        # config.server_id may be None at plan time if it references a
-        # not-yet-created resource's id. Defer server existence checks to
-        # open(); only validate value constraints here.
+    async def validate(self, config: SessionTokenConfig | None) -> list[str]:
+        # `config` is None when the configuration is not wholly known -- here
+        # `server_id` references a resource that does not exist yet, so at plan
+        # time pyvider collapses the whole object rather than handing over one
+        # whose fields are silently None. There is nothing to check until the
+        # values are real, so accept it and let open() do the work.
+        if config is None:
+            return []
+
         errors = []
         if config.ttl_seconds is not None and config.ttl_seconds < 60:
             errors.append("ttl_seconds must be at least 60")

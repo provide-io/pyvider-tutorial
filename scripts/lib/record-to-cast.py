@@ -48,12 +48,21 @@ def _scrub(text: str) -> str:
 
 def main() -> None:
     if len(sys.argv) < 3:
-        print(f"Usage: {sys.argv[0]} [--split-lines] OUTPUT.cast COMMAND [ARGS...]", file=sys.stderr)
+        print(
+            f"Usage: {sys.argv[0]} [--split-lines] [--pause-end=N] [--title=TEXT] "
+            "OUTPUT.cast COMMAND [ARGS...]",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     args = sys.argv[1:]
     split_lines = False
     pause_end = 0.0
+    # Every cast this produced was stamped "pyvider conformance suite",
+    # including the five tutorial parts, none of which is the conformance
+    # suite. The player shows it, so it is worth passing in.
+    title = "pyvider"
+
     while args and args[0].startswith("--"):
         if args[0] == "--split-lines":
             split_lines = True
@@ -63,6 +72,13 @@ def main() -> None:
                 pause_end = float(args[0].split("=", 1)[1])
             else:
                 pause_end = float(args[1])
+                args = args[1:]
+            args = args[1:]
+        elif args[0].startswith("--title"):
+            if "=" in args[0]:
+                title = args[0].split("=", 1)[1]
+            else:
+                title = args[1]
                 args = args[1:]
             args = args[1:]
         else:
@@ -135,7 +151,7 @@ def main() -> None:
         "width": cols,
         "height": rows,
         "timestamp": int(start_time),
-        "title": "pyvider conformance suite",
+        "title": title,
         "env": {"TERM": "xterm-256color", "SHELL": "/bin/bash"},
     }
 

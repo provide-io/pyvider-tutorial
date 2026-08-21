@@ -14,11 +14,11 @@ case "$OUT_DIR" in
 esac
 
 case "$PART_NUM" in
-  1) PART_DIR="part1-resource";    CAST_BASE="tutorial-part1-resource" ;;
-  2) PART_DIR="part2-data-source"; CAST_BASE="tutorial-part2-data-source" ;;
-  3) PART_DIR="part3-function";    CAST_BASE="tutorial-part3-function" ;;
-  4) PART_DIR="part4-ephemeral";   CAST_BASE="tutorial-part4-ephemeral" ;;
-  5) PART_DIR="part5-deploy";      CAST_BASE="tutorial-part5-deploy" ;;
+  1) PART_DIR="part1-resource";    CAST_BASE="tutorial-part1-resource"    TITLE="Building your first resource" ;;
+  2) PART_DIR="part2-data-source"; CAST_BASE="tutorial-part2-data-source" TITLE="Building your first data source" ;;
+  3) PART_DIR="part3-function";    CAST_BASE="tutorial-part3-function"    TITLE="Building your first function" ;;
+  4) PART_DIR="part4-ephemeral";   CAST_BASE="tutorial-part4-ephemeral"   TITLE="Building your first ephemeral resource" ;;
+  5) PART_DIR="part5-deploy";      CAST_BASE="tutorial-part5-deploy"      TITLE="Deploying your provider as a binary" ;;
   *) echo "ERROR: Unknown part number: $PART_NUM (expected 1-5)" >&2; exit 1 ;;
 esac
 
@@ -56,7 +56,7 @@ if [ "$PART_NUM" = "5" ]; then
 
   echo "  Recording $CAST_BASE..."
   python3 "$RECORD_SCRIPT" \
-    --split-lines --pause-end=3 \
+    --split-lines --pause-end=3 --title="$TITLE" \
     "$RAW" \
     bash -c "
       cd '$PROVIDER_DIR'
@@ -105,7 +105,7 @@ else
 
   echo "  Recording $CAST_BASE..."
   python3 "$RECORD_SCRIPT" \
-    --split-lines --pause-end=3 \
+    --split-lines --pause-end=3 --title="$TITLE" \
     "$RAW" \
     bash -c "
       cd '$PROVIDER_DIR'

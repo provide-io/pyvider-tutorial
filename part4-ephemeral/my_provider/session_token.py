@@ -47,7 +47,13 @@ class SessionToken(BaseEphemeralResource):
             "expires_at":  a_str(computed=True, description="ISO-8601 expiry timestamp"),
         })
 
-    async def validate(self, config: SessionTokenConfig) -> list[str]:
+    async def validate(self, config: SessionTokenConfig | None) -> list[str]:
+        # None when the configuration is not wholly known -- `server_id` here
+        # references a resource that does not exist yet at plan time. Nothing to
+        # check until the values are real.
+        if config is None:
+            return []
+
         # config.server_id may be None at plan time if it references a
         # not-yet-created resource's id. Defer server existence checks to
         # open(); only validate value constraints here.
