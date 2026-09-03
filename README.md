@@ -24,7 +24,7 @@ via Flavorpack.
 - Python 3.11+
 - [`uv`](https://docs.astral.sh/uv/)
 - [`tofu`](https://opentofu.org) (or `terraform`)
-- [`pyvider`](https://pypi.org/project/pyvider/) `>=0.3.33` (installed automatically via `uv sync`)
+- [`pyvider`](https://pypi.org/project/pyvider/) `>=0.6.2` (installed automatically via `uv sync`)
 
 ## Running a step
 
