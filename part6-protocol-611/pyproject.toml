@@ -3,7 +3,7 @@ name = "terraform-provider-mycloud"
 version = "0.1.0"
 description = "mycloud tutorial provider — part 6: protocol 6.11 component types"
 requires-python = ">=3.11"
-dependencies = ["pyvider>=0.5.2", "flavorpack"]
+dependencies = ["pyvider>=0.6.2", "flavorpack>=0.5.0"]
 
 [project.scripts]
 terraform-provider-mycloud = "my_provider:main"

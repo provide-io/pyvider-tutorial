@@ -55,7 +55,7 @@ jobs:
         if: env.ACT != 'true' && github.actor != 'nektos/act'
         uses: opentofu/setup-opentofu@v1
         with:
-          tofu_version: 1.10.6
+          tofu_version: 1.12.6
           tofu_wrapper: false
 
       # Install OpenTofu under act (no node required).
