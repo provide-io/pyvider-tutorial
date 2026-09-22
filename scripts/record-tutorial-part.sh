@@ -30,11 +30,14 @@ OUTPUT="$OUT_DIR/$CAST_BASE.cast"
 RECORD_SCRIPT="$REPO_ROOT/scripts/lib/record-to-cast.py"
 RETIME_SCRIPT="$REPO_ROOT/scripts/lib/retime-cast.py"
 
+# Part 7 installs its own OpenTofu; every other part needs one on PATH.
 TF=""
-for cmd in tofu terraform; do
-  if command -v "$cmd" &>/dev/null; then TF="$cmd"; break; fi
-done
-if [ -z "$TF" ]; then echo "ERROR: neither tofu nor terraform on PATH." >&2; exit 1; fi
+if [ "$PART_NUM" != "7" ]; then
+  for cmd in tofu terraform; do
+    if command -v "$cmd" &>/dev/null; then TF="$cmd"; break; fi
+  done
+  if [ -z "$TF" ]; then echo "ERROR: neither tofu nor terraform on PATH." >&2; exit 1; fi
+fi
 
 mkdir -p "$OUT_DIR"
 cd "$PROVIDER_DIR"
