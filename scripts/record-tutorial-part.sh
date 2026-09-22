@@ -20,7 +20,8 @@ case "$PART_NUM" in
   4) PART_DIR="part4-ephemeral";   CAST_BASE="tutorial-part4-ephemeral"   TITLE="Building your first ephemeral resource" ;;
   5) PART_DIR="part5-deploy";      CAST_BASE="tutorial-part5-deploy"      TITLE="Deploying your provider as a binary" ;;
   6) PART_DIR="part6-protocol-611"; CAST_BASE="tutorial-part6-protocol-611" TITLE="Protocol 6.11: actions and list resources" ;;
-  *) echo "ERROR: Unknown part number: $PART_NUM (expected 1-6)" >&2; exit 1 ;;
+  7) PART_DIR="part7-provider-linting"; CAST_BASE="tutorial-part7-provider-linting" TITLE="Part 7 — author and verify a provider lint rule" ;;
+  *) echo "ERROR: Unknown part number: $PART_NUM (expected 1-7)" >&2; exit 1 ;;
 esac
 
 PROVIDER_DIR="$REPO_ROOT/$PART_DIR"
@@ -29,16 +30,30 @@ OUTPUT="$OUT_DIR/$CAST_BASE.cast"
 RECORD_SCRIPT="$REPO_ROOT/scripts/lib/record-to-cast.py"
 RETIME_SCRIPT="$REPO_ROOT/scripts/lib/retime-cast.py"
 
+# Part 7 installs its own OpenTofu; every other part needs one on PATH.
 TF=""
-for cmd in tofu terraform; do
-  if command -v "$cmd" &>/dev/null; then TF="$cmd"; break; fi
-done
-if [ -z "$TF" ]; then echo "ERROR: neither tofu nor terraform on PATH." >&2; exit 1; fi
+if [ "$PART_NUM" != "7" ]; then
+  for cmd in tofu terraform; do
+    if command -v "$cmd" &>/dev/null; then TF="$cmd"; break; fi
+  done
+  if [ -z "$TF" ]; then echo "ERROR: neither tofu nor terraform on PATH." >&2; exit 1; fi
+fi
 
 mkdir -p "$OUT_DIR"
 cd "$PROVIDER_DIR"
 
-if [ "$PART_NUM" = "5" ]; then
+if [ "$PART_NUM" = "7" ]; then
+  # Part 7: record the whole lint walkthrough, then retime it to 38 seconds.
+  echo "  Recording $CAST_BASE..."
+  python3 "$RECORD_SCRIPT" \
+    --split-lines --pause-end=3 --title="$TITLE" \
+    "$RAW" \
+    "$REPO_ROOT/scripts/part7-lesson.sh"
+  RECORD_EXIT=$?
+
+  python3 "$RETIME_SCRIPT" "$RAW" "$OUTPUT" 38
+  rm -f "$RAW"
+elif [ "$PART_NUM" = "5" ]; then
   # Part 5: record the full build-to-deploy flow.
   # The binary must already be built and installed by run-tutorial-part.sh.
   # We re-use that binary (not rebuild) because each flavor pack generates

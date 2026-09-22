@@ -13,7 +13,9 @@ case "$PART_NUM" in
   3) PART_DIR="part3-function" ;;
   4) PART_DIR="part4-ephemeral" ;;
   5) PART_DIR="part5-deploy" ;;
-  *) echo "ERROR: Unknown part number: $PART_NUM (expected 1-5)" >&2; exit 1 ;;
+  # Part 7 is a lint-and-package walkthrough, not an apply lifecycle.
+  7) exec "$REPO_ROOT/scripts/part7-lesson.sh" ;;
+  *) echo "ERROR: Unknown part number: $PART_NUM (expected 1-5 or 7)" >&2; exit 1 ;;
 esac
 
 PROVIDER_DIR="$REPO_ROOT/$PART_DIR"

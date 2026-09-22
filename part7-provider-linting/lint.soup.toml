@@ -1,0 +1,19 @@
+version = 1
+
+[provider]
+source = "registry.opentofu.org/example/mycloud"
+version = "0.1.0"
+
+[provider.environment]
+PYVIDER_LINT = "example/mycloud:all"
+PYVIDER_LOG_LEVEL = "ERROR"
+
+[opentofu]
+fixture = "lint-fixture"
+lint = "all"
+
+[[case]]
+kind = "resource"
+type_name = "mycloud_server"
+config = { name = "web-prod" }
+expect = [{ severity = "warning", summary = "Production environment is encoded in the server name (example/mycloud:production-name)" }]

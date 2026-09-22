@@ -12,6 +12,8 @@ Each step adds exactly one new concept to a small `mycloud` provider:
 | 3 | [`part3-function/`](part3-function) | [Building Your First Provider Function](https://pyvider.com/posts/building-your-first-function/) | A `provider::mycloud::generate_name(...)` HCL-callable function. |
 | 4 | [`part4-ephemeral/`](part4-ephemeral) | [Building Your First Ephemeral Resource](https://pyvider.com/posts/building-your-first-ephemeral-resource/) | A `mycloud_session_token` ephemeral with the `open → renew → close` lifecycle. |
 | 5 | [`part5-deploy/`](part5-deploy) | [Deploying Your Provider as a Binary](https://pyvider.com/posts/deploying-your-provider/) | Package the provider as a single-file executable with Flavorpack — no Python, no venv, no install step on the consumer side. |
+| 6 | [`part6-protocol-611/`](part6-protocol-611) | [Actions and List Resources](https://pyvider.com/tutorials/actions-and-list-resources/) | A provider action and a list resource, run against Terraform 1.15. |
+| 7 | [`part7-provider-linting/`](part7-provider-linting) | [Provider Linting](https://pyvider.com/tutorials/provider-linting/) | One advisory lint rule, tested, packaged, and verified through TofuSoup's direct lane and OpenTofu's experimental lint validation. |
 
 Parts 1–4 are each a self-contained, uv-managed Python package that provides
 `terraform-provider-mycloud`, a fully functional local Terraform provider.
@@ -37,6 +39,10 @@ tofu apply -auto-approve       # or: terraform apply -auto-approve
 ```
 
 Each part's `main.tf` shows the Terraform surface that step introduces.
+
+Part 7 is a lint walkthrough rather than an apply lifecycle. Its
+[README](part7-provider-linting/README.md) lists every command, and
+`./scripts/run-tutorial-part.sh 7` runs them all.
 
 ## Recording the asciinema casts
 
