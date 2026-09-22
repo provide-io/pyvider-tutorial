@@ -31,3 +31,6 @@ part5-deploy/terraform_provider_mycloud.egg-info/
 part5-deploy/terraform.tfstate
 part5-deploy/terraform.tfstate.backup
 part5-deploy/.terraform.lock.hcl
+
+# Part 7 teaches `uv sync --frozen`, so its lock file is part of the lesson.
+!part7-provider-linting/uv.lock

@@ -1,0 +1,37 @@
+[project]
+name = "terraform-provider-mycloud"
+version = "0.1.0"
+description = "Part 7 of the Pyvider tutorial: provider-authored linting"
+requires-python = ">=3.11"
+dependencies = ["pyvider==0.8.1"]
+
+[project.scripts]
+terraform-provider-mycloud = "my_provider:main"
+
+[project.entry-points."pyvider"]
+mycloud = "my_provider"
+
+[dependency-groups]
+dev = [
+    "flavorpack==0.5.3",
+    "pytest>=8",
+    "pytest-asyncio>=0.25",
+]
+
+[build-system]
+requires = ["setuptools>=75.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["my_provider"]
+
+[tool.pyvider]
+provider_name = "mycloud"
+
+[tool.flavor]
+entry_point = "pyvider.cli:main"
+output_path = "dist/terraform-provider-mycloud.psp"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+addopts = "--strict-markers --strict-config"
